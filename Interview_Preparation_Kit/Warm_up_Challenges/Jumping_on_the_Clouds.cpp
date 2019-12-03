@@ -4,24 +4,22 @@ using namespace std;
 
 vector<string> split_string(string);
 
-// Complete the sockMerchant function below.
-int sockMerchant(int n, vector<int> ar) {
-    vector<int> ar_temp(n);
-    int result = 0;
-    for(int i = 0; i < n; i++) {
-        int temp = ar.back();
-        bool found = false;
-        for(int j=0; j < ar_temp.size(); j++) {
-            if (ar_temp[j] == temp) {
-                found = true;
-                result ++;
-                ar_temp.erase(ar_temp.begin() + j);
-            }
+// Complete the jumpingOnClouds function below.
+int jumpingOnClouds(vector<int> c) {
+    int step = 0, height = 0;
+    while(height < c.size() - 1) {
+        if(height == c.size() - 2) {
+            step++;
+            height++;
+        } else if(c[height + 2] == 0) {
+            step++;
+            height += 2;
+        } else if(c[height + 1] == 0) {
+            step++;
+            height++;
         }
-        ar.pop_back();
-        if (!found) ar_temp.push_back(temp);
     }
-    return result;
+    return step;
 }
 
 int main()
@@ -32,22 +30,23 @@ int main()
     cin >> n;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    string ar_temp_temp;
-    getline(cin, ar_temp_temp);
+    string c_temp_temp;
+    getline(cin, c_temp_temp);
 
-    vector<string> ar_temp = split_string(ar_temp_temp);
+    vector<string> c_temp = split_string(c_temp_temp);
 
-    vector<int> ar(n);
+    vector<int> c(n);
 
     for (int i = 0; i < n; i++) {
-        int ar_item = stoi(ar_temp[i]);
+        int c_item = stoi(c_temp[i]);
 
-        ar[i] = ar_item;
+        c[i] = c_item;
     }
 
-    int result = sockMerchant(n, ar);
+    int result = jumpingOnClouds(c);
 
     fout << result << "\n";
+    cout << result << endl;
 
     fout.close();
 
