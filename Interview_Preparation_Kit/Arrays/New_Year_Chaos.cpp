@@ -6,27 +6,17 @@ vector<string> split_string(string);
 
 // Complete the minimumBribes function below.
 void minimumBribes(vector<int> q) {
-    for (int i = q.size() - 1; i >= 0; i--) {
-        for (int j = 0; j < i - 2; j++) {
-            if (q[j] == i + 1) {
-                cout << "Too chaotic" << endl;
-                return;
-            }
-        }
-    }
-
     int num = 0;
     for (int i = 0; i < q.size(); i++) {
-        for (int j = i + 1; j < q.size(); j++) {
-            if (q[j] == i + 1) {
-                num += j - i;
-            }
+        if (q[i] - (i + 1) > 2) {
+            cout << "Too chaotic" << endl;
+            return;
+        }
+        for (int j = max(0, q[i] - 2); j < i; j++) {
+            if (q[j] > q[i]) num++;
         }
     }
     cout << num << endl;
-    return;
-
-
 }
 
 int main()
