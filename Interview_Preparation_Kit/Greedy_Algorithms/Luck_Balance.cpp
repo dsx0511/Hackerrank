@@ -4,16 +4,24 @@ using namespace std;
 
 vector<string> split_string(string);
 
-// Complete the maximumToys function below.
-int maximumToys(vector<int> prices, int k) {
-    sort(prices.begin(), prices.end());
-    int num = 0;
-    for (int i = 0; i < prices.size(); i++) {
-        k -= prices[i];
-        if (k >= 0) num++;
-        else break;
+// Complete the luckBalance function below.
+int luckBalance(int k, vector<vector<int>> contests) {
+    vector<int> important, unimportant;
+    for (int i = 0; i < contests.size(); i++) {
+        if (contests[i][1] == 0) unimportant.insert(unimportant.end(), contests[i][0]);
+        else important.insert(important.end(), contests[i][0]);
     }
-    return num;
+    sort(important.begin(), important.end());
+    sort(unimportant.begin(), unimportant.end());
+    int luck = 0;
+    for (int i = important.size() - 1; i >= 0; i--) {
+        if (k > 0) {
+            luck += important[i];
+            k--;
+        } else luck -= important[i];
+    }
+    for (int i = 0; i < unimportant.size(); i++) luck += unimportant[i];
+    return luck;
 }
 
 int main()
@@ -29,20 +37,18 @@ int main()
 
     int k = stoi(nk[1]);
 
-    string prices_temp_temp;
-    getline(cin, prices_temp_temp);
-
-    vector<string> prices_temp = split_string(prices_temp_temp);
-
-    vector<int> prices(n);
-
+    vector<vector<int>> contests(n);
     for (int i = 0; i < n; i++) {
-        int prices_item = stoi(prices_temp[i]);
+        contests[i].resize(2);
 
-        prices[i] = prices_item;
+        for (int j = 0; j < 2; j++) {
+            cin >> contests[i][j];
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    int result = maximumToys(prices, k);
+    int result = luckBalance(k, contests);
 
     fout << result << "\n";
 
