@@ -69,8 +69,27 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  *
  */
 SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* head, int data, int position) {
-
-
+    if (position == 0) {
+        SinglyLinkedListNode* insert = new SinglyLinkedListNode(data);
+        SinglyLinkedListNode* next = head;
+        head = insert;
+        insert->next = next;
+        return head;
+    }
+    int current_pos = 1;
+    SinglyLinkedListNode* node = head;
+    while (node) {
+        if (current_pos == position) {
+            SinglyLinkedListNode* insert = new SinglyLinkedListNode(data);
+            SinglyLinkedListNode* next = node->next;
+            node->next = insert;
+            insert->next = next;
+            return head;
+        }
+        current_pos++;
+        node = node->next;
+    }
+    return head;
 }
 
 int main()
