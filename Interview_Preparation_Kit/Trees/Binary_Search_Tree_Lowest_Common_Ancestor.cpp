@@ -32,6 +32,7 @@ class Solution {
                return root;
            }
         }
+
 /*The tree node has data, left child and right child 
 class Node {
     int data;
@@ -40,15 +41,9 @@ class Node {
 };
 
 */
-    int height(Node* root) {
-        // Write your code here.
-        if ((!root->left) && (!root->right)) return 0;
-        int left_height = 0, right_height = 0;
-        if (root->left) left_height = height(root->left);
-        if (root->right) right_height = height(root->right);
-        int max_height = max(left_height, right_height) + 1;
-
-        return max_height;
+  
+    Node *lca(Node *root, int v1,int v2) {
+		// Write your code here.
     }
 
 }; //End of Solution
@@ -67,10 +62,13 @@ int main() {
         std::cin >> data;
         root = myTree.insert(root, data);
     }
+  	
+  	int v1, v2;
+  	std::cin >> v1 >> v2;
   
-    int height = myTree.height(root);
+    Node *ans = myTree.lca(root, v1, v2);
     
-  	std::cout << height;
+  	std::cout << ans->data;
 
     return 0;
 }
