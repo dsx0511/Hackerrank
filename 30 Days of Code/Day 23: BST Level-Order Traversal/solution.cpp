@@ -36,12 +36,13 @@ class Solution{
 
 	void levelOrder(Node * root){
         //Write your code here
-        cout << root->data << " ";
-        if (root->left != NULL) {
-            levelOrder(root->left);
-        }
-        if (root->right != NULL) {
-            levelOrder(root->right);
+        queue<Node*> q;
+        q.push(root);
+        while(!q.empty()) {
+            cout << q.front()->data << " ";
+            if (q.front()->left != NULL) q.push(q.front()->left);
+            if (q.front()->right != NULL) q.push(q.front()->right);
+            q.pop();
         }
 	}
 
